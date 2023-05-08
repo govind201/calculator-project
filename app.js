@@ -11,19 +11,13 @@ let secondNum = null;
 let operator = null;
 let result = null;
 
-function add(a, b) {
-    return a + b;
-}
+const add = (a, b) => a + b;
 
-function subtract(a, b) {
-    return a - b;
-}
+const subtract = (a, b) => a - b;
 
-function multiply(a, b) {
-    return a * b;
-}
+const multiply = (a, b) => a * b;
 
-function divide(a, b) {
+const divide = (a, b) => {
     if (b === 0) {
         display.textContent = "Error: can't divide by 0";
         return null;
@@ -31,7 +25,7 @@ function divide(a, b) {
     return a / b;
 }
 
-function operate(operator, a, b) {
+const operate = (operator, a, b) => {
     switch (operator) {
         case "+":
             return add(a, b);
@@ -46,19 +40,15 @@ function operate(operator, a, b) {
     }
 }
 
-function updateDisplay(value) {
-    display.textContent = value;
-}
-
-function clear() {
+const clear = () => {
     firstNum = null;
     secondNum = null;
     operator = null;
     result = null;
-    updateDisplay("0");
+    display.textContent = "0";
 }
 
-function handleNumberClick(e) {
+const handleNumberClick = (e) => {
     const number = e.target.textContent;
     if (operator === null) {
         if (firstNum === null) {
@@ -66,48 +56,48 @@ function handleNumberClick(e) {
         } else {
             firstNum += number;
         }
-        updateDisplay(firstNum);
+        display.textContent = firstNum;
     } else {
         if (secondNum === null) {
             secondNum = number;
         } else {
             secondNum += number;
         }
-        updateDisplay(secondNum);
+        display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
     }
 }
 
-function handleOperatorClick(e) {
-  operator = e.target.value;
-  if (firstNum === null) {
-    firstNum = parseFloat(display.textContent);
-  } else if (operator !== null && secondNum === null) {
-    operator = e.target.textContent;
-    display.textContent = `${firstNum} ${operator}`;
-    return;
-  } else if (secondNum === null) {
-    secondNum = parseFloat(display.textContent);
-    result = operate(operator, firstNum, secondNum);
-    display.textContent = `${result} ${e.target.textContent}`;
-    firstNum = result;
-    secondNum = null;
-    operator = e.target.textContent;
-    return;
-  }
-  display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
+const handleOperatorClick = (e) => {
+    operator = e.target.value;
+    if (firstNum === null) {
+        firstNum = parseFloat(display.textContent);
+    } else if (operator !== null && secondNum === null) {
+        operator = e.target.textContent;
+        display.textContent = `${firstNum} ${operator}`;
+        return;
+    } else if (secondNum === null) {
+        secondNum = parseFloat(display.textContent);
+        result = operate(operator, firstNum, secondNum);
+        display.textContent = `${result} ${e.target.textContent}`;
+        firstNum = result;
+        secondNum = null;
+        operator = e.target.textContent;
+        return;
+    }
+    display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
 }
 
-function handleEqualsClick() {
+const handleEqualsClick = () => {
     if (firstNum !== null && operator !== null && secondNum !== null) {
         result = operate(operator, parseFloat(firstNum), parseFloat(secondNum));
         firstNum = result.toString();
         secondNum = null;
         operator = null;
-        updateDisplay(firstNum);
+        display.textContent = firstNum;
     }
 }
 
-function handleDecimalClick() {
+const handleDecimalClick = () => {
     if (display.textContent.indexOf(".") === -1) {
         if (operator === null) {
             if (firstNum === null) {
@@ -115,18 +105,17 @@ function handleDecimalClick() {
             } else {
                 firstNum += ".";
             }
-            updateDisplay(firstNum);
+            display.textContent = firstNum;
         } else {
             if (secondNum === null) {
                 secondNum = "0.";
             } else {
                 secondNum += ".";
             }
-            updateDisplay(secondNum);
+            display.textContent = secondNum;
         }
     }
 }
-
 numberBtns.forEach((btn) => {
     btn.addEventListener("click", handleNumberClick);
 });
