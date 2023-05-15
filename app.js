@@ -125,4 +125,3 @@ operatorBtns.forEach((btn) => {
 equalsBtn.addEventListener("click", handleEqualsClick);
 decimalBtn.addEventListener("click", handleDecimalClick);
 clearBtn.addEventListener("click", clear);
- 
