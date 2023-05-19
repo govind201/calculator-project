@@ -10,7 +10,7 @@
 
 .display {
     width: 100%;
-    height: 50px;
+    height: 100%;
     border: 1px solid black;
     border-radius: 5px;
     margin-bottom: 10px;
@@ -39,17 +39,12 @@ button:hover {
     color: white;
 }
 
-.operator {
+.operator, .equals {
     background-color: #666;
     color: white;
 }
 
-.equals {
-    background-color: #333;
-    color: white;
-}
-
-.decimal {
+/* .decimal {
     background-color: #eee;
     font-weight: bold;
-}
+}  */
