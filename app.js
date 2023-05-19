@@ -96,7 +96,7 @@ const handleEqualsClick = () => {
 };
 
 const isAllInputsFilled = () => {
-  return firstNum !== "" && operator !== "" && secondNum !== "";
+  return !isFirstNumEmpty() && !isSecondNumEmpty() && !isOperatorEmpty();
 };
 
 const handleDecimalClick = () => {
@@ -116,7 +116,7 @@ const handleDecimalClickForFirstNum = () => {
 
 const handleDecimalClickForSecondNum = () => {
   if(secondNum.indexOf(".") === -1 ) {
-    secondNum = secondNum === "" ? "0." : secondNum + ".";
+    secondNum = isSecondNumEmpty() ? "0." : secondNum + ".";
     display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
   }
 };
