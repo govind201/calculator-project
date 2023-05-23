@@ -69,12 +69,18 @@ const setSecondNumber = (number) => {
 };
 
 const handleOperatorClick = (e) => {
+  let lastOperator = operator;
   operator = e.target.value;
   if (isFirstNumEmpty()) {
     display.textContent = "Error: Input Number before operator";
     return;
-  }  
-    display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
+  }
+  if (isAllInputsFilled()) {
+    result = operate(lastOperator, parseFloat(firstNum), parseFloat(secondNum));
+    firstNum = result.toString();
+    secondNum = "";
+  }
+  display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
 };
 
 const isOperatorEmpty = () => {
@@ -88,6 +94,13 @@ const isSecondNumEmpty = () => {
 const handleEqualsClick = () => {
   if (isAllInputsFilled()) {
     result = operate(operator, parseFloat(firstNum), parseFloat(secondNum));
+    if (!result) {
+      firstNum = "";
+      secondNum = "";
+      operator = "";
+      result = "";
+      return;
+    }
     firstNum = result.toString();
     secondNum = "";
     operator = "";
@@ -100,22 +113,22 @@ const isAllInputsFilled = () => {
 };
 
 const handleDecimalClick = () => {
-    if (isOperatorEmpty()) {
-      handleDecimalClickForFirstNum();
-    } else {
-      handleDecimalClickForSecondNum();
-    }
+  if (isOperatorEmpty()) {
+    handleDecimalClickForFirstNum();
+  } else {
+    handleDecimalClickForSecondNum();
+  }
 };
 
 const handleDecimalClickForFirstNum = () => {
-  if(firstNum.indexOf(".") === -1 ) {
+  if (firstNum.indexOf(".") === -1) {
     firstNum = isFirstNumEmpty() ? "0." : firstNum + ".";
     display.textContent = firstNum;
   }
 };
 
 const handleDecimalClickForSecondNum = () => {
-  if(secondNum.indexOf(".") === -1 ) {
+  if (secondNum.indexOf(".") === -1) {
     secondNum = isSecondNumEmpty() ? "0." : secondNum + ".";
     display.textContent = `${firstNum} ${operator} ${secondNum || ""}`;
   }
