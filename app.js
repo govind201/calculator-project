@@ -94,7 +94,7 @@ const isSecondNumEmpty = () => {
 const handleEqualsClick = () => {
   if (isAllInputsFilled()) {
     result = operate(operator, parseFloat(firstNum), parseFloat(secondNum));
-    if (!result) {
+    if (result === "0") {
       firstNum = "";
       secondNum = "";
       operator = "";
